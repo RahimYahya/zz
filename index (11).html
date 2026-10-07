@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+
+<html lang="ms">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PKSK Pengetahuan Am: Kebudayaan & Tradisi Malaysia</title>
+
+    <!-- Tailwind CSS CDN -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts Inter -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        body {
+
+            font-family: 'Plus Jakarta Sans', sans-serif;
+
+            background-color: #f8fafc;
+
+        }
+
+        .shake-anim {
+
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+
+        }
+
+        @keyframes shake {
+
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+
+        }
+
+        .pop-anim {
+
+            animation: pop 0.3s ease-out;
+
+        }
+
+        @keyframes pop {
+
+            0% { transform: scale(0.95); opacity: 0.8; }
+
+            50% { transform: scale(1.02); }
+
+            100% { transform: scale(1); opacity: 1; }
+
+        }
+
+    </style>
+
+</head>
+
+<body class="bg-slate-100 min-h-screen text-slate-800 flex flex-col justify-between">
+
+
+
+    <!-- Header -->
+
+    <header class="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 text-white shadow-lg sticky top-0 z-50">
+
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+
+            <div class="flex items-center space-x-3">
+
+                <div class="bg-white/20 p-2.5 rounded-xl backdrop-blur-md">
+
+                    <i class="fa-solid fa-graduation-cap text-2xl text-yellow-300"></i>
+
+                </div>
+
+                <div>
+
+                    <h1 class="font-extrabold text-lg md:text-xl leading-tight">PKSK Pengetahuan Am</h1>
+
+                    <p class="text-xs text-indigo-100 hidden sm:block">Kebudayaan, Makanan, Tradisi & Kesenian Malaysia</p>
+
+                </div>
+
+            </div>
+
+            <div class="flex items-center space-x-3">
+
+                <!-- Sound Toggle Button -->
+
+                <button id="soundToggleBtn" onclick="toggleSound()" class="bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg text-xs md:text-sm font-semibold flex items-center gap-2 border border-white/20 transition">
+
+                    <i id="soundIcon" class="fa-solid fa-volume-high text-yellow-300"></i>
+
+                    <span id="soundText" class="hidden sm:inline">Bunyi: On</span>
+
+                </button>
+
+                <!-- Score Counter Badge -->
+
+                <div class="bg-yellow-400 text-indigo-950 px-3 py-1.5 rounded-lg font-bold text-sm shadow-md flex items-center gap-1.5">
+
+                    <i class="fa-solid fa-star"></i>
+
+                    <span id="scoreDisplay">0 / 30</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- Main Content Container -->
+
+    <main class="max-w-4xl mx-auto px-4 py-6 w-full flex-grow">
+
+        <!-- Welcome / Start Screen Card -->
+
+        <div id="startScreen" class="bg-white rounded-2xl shadow-xl p-6 md:p-8 text-center border border-slate-200">
+
+            <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-inner">
+
+                <i class="fa-solid fa-landmark"></i>
+
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-2">Pentaksiran Kemasukan Sekolah Khusus</h2>
+
+            <p class="text-indigo-600 font-semibold mb-4">Modul Latihan Interaktif Pengetahuan Am</p>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-left text-sm text-slate-600 mb-6 space-y-2">
+
+                <p class="font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-circle-info text-indigo-500"></i> Panduan Menjawab:</p>
+
+                <ul class="list-disc list-inside space-y-1 pl-1">
+
+                    <li>Modul mengandungi <strong>30 soalan objektif</strong> berkaitan warisan Malaysia.</li>
+
+                    <li>Jika jawapan anda <strong>salah pada cubaan pertama</strong>, anda diberi <strong>1 peluang lagi</strong> untuk mencuba.</li>
+
+                    <li>Jawapan betul mendapat bunyi tepukan gemuruh, manakala jawapan salah mengeluarkan bunyi amaran.</li>
+
+                    <li>Sistem memberikan ulasan dan jawapan tepat bagi setiap soalan.</li>
+
+                </ul>
+
+            </div>
+
+
+
+            <button onclick="startQuiz()" class="w-full md:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-base md:text-lg rounded-xl shadow-lg hover:shadow-indigo-500/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+
+                <i class="fa-solid fa-play mr-2"></i> Mula Latihan Sekarang
+
+            </button>
+
+        </div>
+
+
+
+        <!-- Quiz Panel (Hidden by Default) -->
+
+        <div id="quizPanel" class="hidden space-y-4">
+
+            <!-- Progress Bar -->
+
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
+
+                <div class="flex justify-between items-center text-xs font-bold text-slate-500 mb-2">
+
+                    <span id="questionNumText">Soalan 1 daripada 30</span>
+
+                    <span id="attemptStatusBadge" class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full border border-indigo-200">Cubaan 1 / 2</span>
+
+                </div>
+
+                <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+
+                    <div id="progressBar" class="bg-gradient-to-r from-indigo-500 to-purple-600 h-full w-0 transition-all duration-300"></div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Question Card -->
+
+            <div id="questionCard" class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-slate-200 transition-all">
+
+                <!-- Category Tag -->
+
+                <div class="mb-3 flex items-center justify-between">
+
+                    <span id="categoryTag" class="text-xs font-bold uppercase tracking-wider text-purple-700 bg-purple-100 px-3 py-1 rounded-full border border-purple-200">
+
+                        <i class="fa-solid fa-utensils mr-1"></i> Makanan Tradisional
+
+                    </span>
+
+                    <span id="streakBadge" class="hidden text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+
+                        <i class="fa-solid fa-fire mr-1"></i> Streak!
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- Question Text -->
+
+                <h3 id="questionText" class="text-lg md:text-xl font-bold text-slate-800 leading-snug mb-6">
+
+                    Muat turun soalan...
+
+                </h3>
+
+
+
+                <!-- Options List -->
+
+                <div id="optionsContainer" class="grid grid-cols-1 gap-3 mb-6">
+
+                    <!-- Dynamic Option Buttons injected via JS -->
+
+                </div>
+
+
+
+                <!-- Feedback Alert Box -->
+
+                <div id="feedbackBox" class="hidden p-4 rounded-xl text-sm font-semibold transition-all">
+
+                    <div class="flex items-start gap-3">
+
+                        <i id="feedbackIcon" class="text-xl mt-0.5"></i>
+
+                        <div>
+
+                            <p id="feedbackTitle" class="font-bold text-base"></p>
+
+                            <p id="feedbackDetail" class="text-xs md:text-sm mt-1 opacity-90"></p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Controls / Navigation -->
+
+            <div class="flex justify-between items-center gap-2">
+
+                <button id="prevBtn" onclick="prevQuestion()" class="px-4 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-sm rounded-xl transition flex items-center gap-1 disabled:opacity-40 disabled:cursor-not-allowed">
+
+                    <i class="fa-solid fa-chevron-left"></i> Soalan Sebelum
+
+                </button>
+
+
+
+                <button id="nextBtn" onclick="nextQuestion()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl shadow-md transition flex items-center gap-2">
+
+                    <span>Seterusnya</span> <i class="fa-solid fa-chevron-right"></i>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- Question Grid Navigator -->
+
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200 mt-4">
+
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Pintas Soalan:</p>
+
+                <div id="gridNavigator" class="grid grid-cols-6 sm:grid-cols-10 gap-1.5">
+
+                    <!-- Injected by JS -->
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <!-- Result Screen (Hidden by Default) -->
+
+        <div id="resultScreen" class="hidden bg-white rounded-2xl shadow-xl p-6 md:p-8 text-center border border-slate-200">
+
+            <div class="w-24 h-24 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4 text-4xl shadow-inner">
+
+                <i class="fa-solid fa-trophy"></i>
+
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-1">Keputusan Latihan PKSK</h2>
+
+            <p class="text-sm text-slate-500 mb-6">Pengetahuan Am: Kebudayaan, Makanan & Kesenian Malaysia</p>
+
+
+
+            <!-- Score Summary Box -->
+
+            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100 mb-6 max-w-md mx-auto">
+
+                <span class="text-xs font-extrabold text-indigo-600 uppercase tracking-widest">Markah Keseluruhan</span>
+
+                <div class="text-4xl md:text-5xl font-black text-indigo-900 my-2" id="finalScoreText">0 / 30</div>
+
+                <p id="performanceGrade" class="text-sm font-bold text-purple-700">Tahap Penguasaan...</p>
+
+            </div>
+
+
+
+            <!-- Breakdown Stats -->
+
+            <div class="grid grid-cols-2 gap-3 max-w-md mx-auto mb-6 text-sm">
+
+                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-emerald-800">
+
+                    <p class="text-xs text-emerald-600 font-bold uppercase">Cubaan Pertama Betul</p>
+
+                    <p id="firstTryCount" class="text-xl font-bold">0</p>
+
+                </div>
+
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-amber-800">
+
+                    <p class="text-xs text-amber-600 font-bold uppercase">Cubaan Kedua Betul</p>
+
+                    <p id="secondTryCount" class="text-xl font-bold">0</p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="flex flex-col sm:flex-row justify-center gap-3">
+
+                <button onclick="restartQuiz()" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+
+                    <i class="fa-solid fa-rotate-right"></i> Cuba Sekali Lagi
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+    </main>
+
+
+
+    <!-- Footer -->
+
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+
+        <p>© Modul Persediaan PKSK - Kebudayaan Warisan Malaysia</p>
+
+    </footer>
+
+
+
+    <script>
+
+        /* Web Audio API Sound Effects (100% Offline & Reliable) */
+
+        let audioCtx = null;
+
+        let isSoundMuted = false;
+
+
+
+        function getAudioContext() {
+
+            if (!audioCtx) {
+
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+
+                audioCtx = new AudioContext();
+
+            }
+
+            if (audioCtx.state === 'suspended') {
+
+                audioCtx.resume();
+
+            }
+
+            return audioCtx;
+
+        }
+
+
+
+        function toggleSound() {
+
+            isSoundMuted = !isSoundMuted;
+
+            const icon = document.getElementById('soundIcon');
+
+            const text = document.getElementById('soundText');
+
+            if (isSoundMuted) {
+
+                icon.className = 'fa-solid fa-volume-xmark text-red-300';
+
+                text.innerText = 'Bunyi: Off';
+
+            } else {
+
+                icon.className = 'fa-solid fa-volume-high text-yellow-300';
+
+                text.innerText = 'Bunyi: On';
+
+            }
+
+        }
+
+
+
+        // Play Warning Buzzer Sound
+
+        function playWrongSound() {
+
+            if (isSoundMuted) return;
+
+            try {
+
+                const ctx = getAudioContext();
+
+                const osc = ctx.createOscillator();
+
+                const gain = ctx.createGain();
+
+
+
+                osc.type = 'sawtooth';
+
+                osc.frequency.setValueAtTime(150, ctx.currentTime);
+
+                osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.35);
+
+
+
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+
+
+
+                osc.connect(gain);
+
+                gain.connect(ctx.destination);
+
+
+
+                osc.start();
+
+                osc.stop(ctx.currentTime + 0.35);
+
+            } catch (e) { console.log(e); }
+
+        }
+
+
+
+        // Play Applause & Fanfare Cheer Sound
+
+        function playCorrectSound() {
+
+            if (isSoundMuted) return;
+
+            try {
+
+                const ctx = getAudioContext();
+
+                // 1. Fanfare Chime (Melody: C5 -> E5 -> G5 -> C6)
+
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+
+                notes.forEach((freq, idx) => {
+
+                    const osc = ctx.createOscillator();
+
+                    const gain = ctx.createGain();
+
+                    osc.type = 'triangle';
+
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime + (idx * 0.08));
+
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime + (idx * 0.08));
+
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (idx * 0.08) + 0.4);
+
+                    osc.connect(gain);
+
+                    gain.connect(ctx.destination);
+
+                    osc.start(ctx.currentTime + (idx * 0.08));
+
+                    osc.stop(ctx.currentTime + (idx * 0.08) + 0.4);
+
+                });
+
+
+
+                // 2. Synthetic Applause / Clapping Noise Burst
+
+                const bufferSize = ctx.sampleRate * 1.2; // 1.2 seconds of applause
+
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+
+                const data = buffer.getChannelData(0);
+
+                for (let i = 0; i < bufferSize; i++) {
+
+                    data[i] = Math.random() * 2 - 1;
+
+                }
+
+
+
+                const noise = ctx.createBufferSource();
+
+                noise.buffer = buffer;
+
+
+
+                // Filter noise to sound like hand claps
+
+                const filter = ctx.createBiquadFilter();
+
+                filter.type = 'bandpass';
+
+                filter.frequency.setValueAtTime(1200, ctx.currentTime);
+
+                filter.Q.setValueAtTime(1.5, ctx.currentTime);
+
+
+
+                const noiseGain = ctx.createGain();
+
+                noiseGain.gain.setValueAtTime(0.01, ctx.currentTime);
+
+                noiseGain.gain.linearRampToValueAtTime(0.25, ctx.currentTime + 0.2);
+
+                noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+
+
+
+                noise.connect(filter);
+
+                filter.connect(noiseGain);
+
+                noiseGain.connect(ctx.destination);
+
+
+
+                noise.start(ctx.currentTime + 0.15);
+
+            } catch (e) { console.log(e); }
+
+        }
+
+
+
+        const quizData = [
+
+            {
+
+                category: "Kesenian & Tarian",
+
+                question: "Tarian Zapin merupakan tarian tradisional Melayu yang amat terkenal dan popular terutamanya di negeri...",
+
+                options: ["Johor", "Kelantan", "Kedah", "Perak"],
+
+                correct: 0,
+
+                explanation: "Tarian Zapin diperkenalkan oleh pedagang Arab dan berkembang pesat di negeri Johor sebagai tarian warisan utama."
+
+            },
+
+            {
+
+                category: "Muzik Tradisional",
+
+                question: "Alat muzik petik tradisional 'Sape' yang diperbuat daripada kayu diukir indah berasal daripada warisan negeri/wilayah...",
+
+                options: ["Sabah", "Sarawak", "Melaka", "Pahang"],
+
+                correct: 1,
+
+                explanation: "Sape ialah alat muzik bertali tradisional masyarakat Kenyah dan Kayan di Sarawak."
+
+            },
+
+            {
+
+                category: "Makanan Tradisional",
+
+                question: "Makanan tradisional Sabah yang diperbuat daripada ikan mentah segar yang diperap bersama jus limau dan biji buah bambangan dikenali sebagai...",
+
+                options: ["Ambuyat", "Hinava", "Linopot", "Tuak"],
+
+                correct: 1,
+
+                explanation: "Hinava merupakan hidangan tradisional terkenal suku kaum Kadazandusun di Sabah."
+
+            },
+
+            {
+
+                category: "Permainan Tradisional",
+
+                question: "Permainan layang-layang tradisional 'Wau Bulan' amat sinonim dan menjadi lambang kebudayaan negeri...",
+
+                options: ["Terengganu", "Kelantan", "Perlis", "Pulau Pinang"],
+
+                correct: 1,
+
+                explanation: "Wau Bulan ialah seni kraftangan dan permainan tradisional kebanggaan rakyat Kelantan."
+
+            },
+
+            {
+
+                category: "Kraf Tangan",
+
+                question: "Apakah nama tembikar tanah tradisional berbentuk labu yang terkenal dari Sayong, Perak untuk menyimpan air minum?",
+
+                options: ["Pasu Krian", "Labu Sayong", "Tempolong", "Buyung Melaka"],
+
+                correct: 1,
+
+                explanation: "Labu Sayong ialah seni tembikar hitam tradisional khas dari Kampung Sayong, Kuala Kangsar, Perak."
+
+            },
+
+            {
+
+                category: "Warisan UNESCO",
+
+                question: "Seni teater tradisional 'Mak Yong' yang diiktiraf oleh UNESCO sebagai Warisan Budaya Tidak Ketara berasal dari negeri...",
+
+                options: ["Kelantan", "Negeri Sembilan", "Melaka", "Selangor"],
+
+                correct: 0,
+
+                explanation: "Mak Yong merupakan teater tarian dramatik Melayu purba yang bertapak di negeri Kelantan."
+
+            },
+
+            {
+
+                category: "Pakaian Tradisional",
+
+                question: "Pakaian tradisional wanita suku kaum Kadazandusun di Sabah yang diperbuat daripada kain baldu hitam dihiasi reben emas dinamakan...",
+
+                options: ["Sinuangga", "Cheongsam", "Kua Iban", "Sari"],
+
+                correct: 0,
+
+                explanation: "Sinuangga ialah pakaian tradisional wanita Kadazandusun yang dipakai semasa sambutan Pesta Kaamatan."
+
+            },
+
+            {
+
+                category: "Makanan Tradisional",
+
+                question: "Makanan tradisional Melayu yang dihasilkan daripada isi durian yang difermentasi/dijeruk dinamakan...",
+
+                options: ["Cencaluk", "Budu", "Tempoyak", "Pekasam"],
+
+                correct: 2,
+
+                explanation: "Tempoyak diperbuat daripada isi durian yang diperam dan dimakan bersama gulai atau dibuat sambal."
+
+            },
+
+            {
+
+                category: "Tarian Tradisional",
+
+                question: "Tarian 'Ngajat' merupakan tarian pahlawan dan perayaan tradisional yang ditarikan oleh suku kaum...",
+
+                options: ["Kadazan", "Iban", "Bajau", "Melanau"],
+
+                correct: 1,
+
+                explanation: "Tarian Ngajat ditarikan oleh masyarakat Iban di Sarawak sebagai tanda bersyukur dan menyambut Hari Gawai."
+
+            },
+
+            {
+
+                category: "Alat Muzik",
+
+                question: "Alat muzik tiup tradisional Melayu diperbuat daripada buluh dan kayu yang sering memimpin muzik Dikir Barat dinamakan...",
+
+                options: ["Serunai", "Sompoton", "Rebab", "Harmonika"],
+
+                correct: 0,
+
+                explanation: "Serunai menghasilkan melodi utama yang nyaring dalam seni persembahan Dikir Barat dan Wayang Kulit."
+
+            },
+
+            {
+
+                category: "Makanan Tradisional",
+
+                question: "Makanan 'Ambuyat' yang diperbuat daripada tepung sagu dimakan menggunakan penyepit khas (candadas) popular di...",
+
+                options: ["Sarawak & Sabah", "Kedah & Perlis", "Johor & Melaka", "Pahang & Terengganu"],
+
+                correct: 0,
+
+                explanation: "Ambuyat merupakan hidangan ruji tradisional masyarakat di Sabah, Sarawak, dan Brunei."
+
+            },
+
+            {
+
+                category: "Seni Tenunan",
+
+                question: "Seni tenunan kain tradisional bermutu tinggi yang ditenun menggunakan benang emas atau perak dinamakan...",
+
+                options: ["Batik", "Songket", "Pua Kumbu", "Pua Sibu"],
+
+                correct: 1,
+
+                explanation: "Songket dikenali sebagai 'Ratu Kain' dalam warisan Melayu kerana keindahan tenunan benang emasnya."
+
+            },
+
+            {
+
+                category: "Perayaan & Tradisi",
+
+                question: "Tarian Sumazau ditarikan oleh masyarakat Kadazandusun dengan meniru gerakan burung helang semasa perayaan...",
+
+                options: ["Pesta Kaamatan", "Hari Gawai", "Pesta Dongzhi", "San Pedro"],
+
+                correct: 0,
+
+                explanation: "Pesta Kaamatan ialah pesta menuai padi masyarakat Kadazandusun di Sabah."
+
+            },
+
+            {
+
+                category: "Permainan Tradisional",
+
+                question: "Permainan tradisional yang menggunakan papan kayu bertingkat dan guli atau buah getah dinamakan...",
+
+                options: ["Congkak", "Gasing", "Batu Seremban", "Sepak Raga"],
+
+                correct: 0,
+
+                explanation: "Congkak ialah permainan melayu berasaskan pengiraan logik menggunakan buah congkak atau guli."
+
+            },
+
+            {
+
+                category: "Makanan Tradisional",
+
+                question: "Laksa Sarawak mempunyai kuah berempah khas yang unik dan disajikan bersama hidangan sampingan iaitu...",
+
+                options: ["Telur dadar hiris & udang", "Bebola ikan & kek kacang", "Daging lembu & kangkung", "Nasi himpit & kuah kacang"],
+
+                correct: 0,
+
+                explanation: "Laksa Sarawak terkenal dengan kuah santan berempah, mi bihun, hiris telur dadar, udang, dan ayam rebih."
+
+            },
+
+            {
+
+                category: "Kraf Tangan",
+
+                question: "Seni mewarna dan mencorak kain menggunakan cecair lilin panas dan pewarna dinamakan seni...",
+
+                options: ["Batik", "Tekatan", "Anyaman", "Ukiran Kayu"],
+
+                correct: 0,
+
+                explanation: "Batik Melayu (Batik Tulis/Capping) menggunakan lilin untuk menahan warna daripada meresap."
+
+            },
+
+            {
+
+                category: "Muzik Tradisional",
+
+                question: "Alat muzik petik bertali klasik masyarakat India yang popular dalam persembahan muzik tradisional di Malaysia ialah...",
+
+                options: ["Sitar", "Tabla", "Kompan", "Harmonium"],
+
+                correct: 0,
+
+                explanation: "Sitar ialah alat muzik bertali berunsur klasik India yang mempunya bunyi yang merdu."
+
+            },
+
+            {
+
+                category: "Seni Pertahanan Diri",
+
+                question: "Seni mempertahankan diri tradisional Melayu yang digabungkan dengan estetika gerak tari dan muzik pergendangan ialah...",
+
+                options: ["Silat", "Taekwondo", "Karate", "Kalaripayattu"],
+
+                correct: 0,
+
+                explanation: "Silat merupakan seni bela diri warisan Alam Melayu yang diiktiraf dunia."
+
+            },
+
+            {
+
+                category: "Perayaan & Tradisi",
+
+                question: "Perayaan 'Hari Gawai Dayak' yang disambut meriah pada 1 Jun setiap tahun di Sarawak bertujuan meraikan...",
+
+                options: ["Musim Menanam", "Musim Tuai Padi", "Tahun Baharu", "Pesta Laut"],
+
+                correct: 1,
+
+                explanation: "Hari Gawai Dayak disambut sebagai tanda kesyukuran atas hasil tuaian padi yang berlimpah-ruah."
+
+            },
+
+            {
+
+                category: "Pakaian Tradisional",
+
+                question: "Pakaian tradisional lelaki kaum India yang terdiri daripada sehelai kain putih dililit di pinggang dinamakan...",
+
+                options: ["Dhoti", "Kurta", "Sherwani", "Samfoo"],
+
+                correct: 0,
+
+                explanation: "Dhoti ialah pakaian tradisional bagi lelaki India semasa majlis keagamaan dan perkahwinan."
+
+            },
+
+            {
+
+                category: "Makanan Tradisional",
+
+                question: "Makanan khas di Melaka yang diperbuat daripada udang geragau yang dijeruk dan difermenkan dinamakan...",
+
+                options: ["Budu", "Cencaluk", "Pekasam", "Otak-otak"],
+
+                correct: 1,
+
+                explanation: "Cencaluk merupakan makanan tradisional Melaka hasil fermentasi udang geragau halus."
+
+            },
+
+            {
+
+                category: "Kraf Tangan",
+
+                question: "Seni kraf menganyam daun pandan atau mengkuang yang dikeringkan untuk dijadikan tikar atau bakul dinamakan...",
+
+                options: ["Anyaman", "Tekatan", "Sulaman", "Tenunan"],
+
+                correct: 0,
+
+                explanation: "Seni Anyaman Mengkuang merupakan kraf tangan tradisional masyarakat Melayu pesisir."
+
+            },
+
+            {
+
+                category: "Muzik Tradisional",
+
+                question: "Alat muzik perkusi berupa gendang kecil berbingkai kayu yang dimainkan semasa perarakan pengantin dinamakan...",
+
+                options: ["Kompang", "Rebana Ubi", "Gamelan", "Gong"],
+
+                correct: 0,
+
+                explanation: "Kompang merupakan alat muzik perkusi paling popular dalam masyarakat Melayu."
+
+            },
+
+            {
+
+                category: "Warisan Kesenian",
+
+                question: "Persembahan teater bayangan tradisional yang menggunakan patung watak daripada kulit lembu/kambing dinamakan...",
+
+                options: ["Wayang Kulit", "Bangsawan", "Dikir Barat", "Boria"],
+
+                correct: 0,
+
+                explanation: "Wayang Kulit dimainkan oleh Tok Dalang di sebalik layar kain putih bernyala lampu."
+
+            },
+
+            {
+
+                category: "Makanan Tradisional",
+
+                question: "Nasi Kerabu yang berwarna biru semula jadi terhasil daripada perahan bunga khas iaitu...",
+
+                options: ["Bunga Telang", "Bunga Raya", "Bunga Kertas", "Bunga Kuantan"],
+
+                correct: 0,
+
+                explanation: "Bunga Telang memberikan warna biru semula jadi yang cantik dan wangi pada Nasi Kerabu."
+
+            },
+
+            {
+
+                category: "Makanan Tradisional",
+
+                question: "Kuih tradisional Melayu berbentuk bulat bersalut kelapa parut dan berisi gula melaka cair di dalamnya dikenali sebagai...",
+
+                options: ["Kuih Seri Mukat", "Kuih Ondeh-ondeh", "Kuih Lapis", "Kuih Talam"],
+
+                correct: 1,
+
+                explanation: "Kuih Ondeh-ondeh (atau Buah Melaka) 'meletup' dengan keharuman gula melaka apabila dikunyah."
+
+            },
+
+            {
+
+                category: "Kesenian & Tradisi",
+
+                question: "Tarian 'Dondang Sayang' yang diiringi oleh nyanyian pantun kasih sayang amat popular di negeri...",
+
+                options: ["Melaka", "Kedah", "Kelantan", "Perlis"],
+
+                correct: 0,
+
+                explanation: "Dondang Sayang diiktiraf UNESCO dan merupakan seni warisan masyarakat Melayu dan Baba Nyonya Melaka."
+
+            },
+
+            {
+
+                category: "Alat Muzik",
+
+                question: "Alat muzik tradisional Sabah yang diperbuat daripada labu kering dan beberapa batang buluh dinamakan...",
+
+                options: ["Sompoton", "Sape", "Angklung", "Gong"],
+
+                correct: 0,
+
+                explanation: "Sompoton ialah alat muzik tiup berorgan yang unik warisan suku Kadazandusun di Sabah."
+
+            },
+
+            {
+
+                category: "Kraf Tangan",
+
+                question: "Kain tenunan tradisional masyarakat Iban di Sarawak yang kaya dengan corak bermotifkan alam dinamakan...",
+
+                options: ["Pua Kumbu", "Songket", "Batik Canting", "Kain Kain Limar"],
+
+                correct: 0,
+
+                explanation: "Pua Kumbu merupakan kain pua священ bermotifkan flora, fauna dan mitologi Iban."
+
+            },
+
+            {
+
+                category: "Seni Senibina",
+
+                question: "Rumah Tradisional Negeri Sembilan mempunyai keunikan pada bumbungnya yang melengkung menyerupai...",
+
+                options: ["Tanduk Kerbau", "Sayap Burung", "Puncak Gunung", "Bot Perahu"],
+
+                correct: 0,
+
+                explanation: "Seni bina Minangkabau Negeri Sembilan menampilkan bumbung bertanduk kerbau yang dipanggil 'Lunjur'."
+
+            }
+
+        ];
+
+
+
+        let currentIndex = 0;
+
+        let score = 0;
+
+        // Tracking per question: { attempts: 0, solved: false, selectedOpt: null, points: 0 }
+
+        let userState = quizData.map(() => ({
+
+            attempts: 0,
+
+            solved: false,
+
+            selectedOpt: null,
+
+            points: 0,
+
+            disabledOpts: []
+
+        }));
+
+
+
+        function startQuiz() {
+
+            document.getElementById('startScreen').classList.add('hidden');
+
+            document.getElementById('quizPanel').classList.remove('hidden');
+
+            renderQuestionNav();
+
+            loadQuestion(0);
+
+        }
+
+
+
+        function renderQuestionNav() {
+
+            const container = document.getElementById('gridNavigator');
+
+            container.innerHTML = '';
+
+            quizData.forEach((_, idx) => {
+
+                const btn = document.createElement('button');
+
+                btn.id = `nav-btn-${idx}`;
+
+                btn.innerText = idx + 1;
+
+                btn.onclick = () => jumpToQuestion(idx);
+
+                btn.className = `h-8 w-8 text-xs font-bold rounded-lg border flex items-center justify-center transition ${getNavBtnClass(idx)}`;
+
+                container.appendChild(btn);
+
+            });
+
+        }
+
+
+
+        function getNavBtnClass(idx) {
+
+            const state = userState[idx];
+
+            if (idx === currentIndex) {
+
+                return 'border-indigo-600 bg-indigo-600 text-white shadow-md ring-2 ring-indigo-300';
+
+            }
+
+            if (state.solved) {
+
+                return state.points === 1 
+
+                    ? 'bg-emerald-100 border-emerald-400 text-emerald-800' 
+
+                    : 'bg-amber-100 border-amber-400 text-amber-800';
+
+            }
+
+            if (state.attempts > 0) {
+
+                return 'bg-rose-100 border-rose-300 text-rose-700';
+
+            }
+
+            return 'bg-slate-100 border-slate-200 text-slate-600 hover:bg-slate-200';
+
+        }
+
+
+
+        function updateNavGrid() {
+
+            quizData.forEach((_, idx) => {
+
+                const btn = document.getElementById(`nav-btn-${idx}`);
+
+                if (btn) btn.className = `h-8 w-8 text-xs font-bold rounded-lg border flex items-center justify-center transition ${getNavBtnClass(idx)}`;
+
+            });
+
+        }
+
+
+
+        function loadQuestion(index) {
+
+            currentIndex = index;
+
+            const q = quizData[index];
+
+            const state = userState[index];
+
+
+
+            // Progress bar & texts
+
+            document.getElementById('questionNumText').innerText = `Soalan ${index + 1} daripada ${quizData.length}`;
+
+            document.getElementById('progressBar').style.width = `${((index + 1) / quizData.length) * 100}%`;
+
+            document.getElementById('categoryTag').innerHTML = `<i class="fa-solid fa-bookmark mr-1"></i> ${q.category}`;
+
+            document.getElementById('questionText').innerText = `${index + 1}. ${q.question}`;
+
+
+
+            // Attempt status badge
+
+            const attemptBadge = document.getElementById('attemptStatusBadge');
+
+            if (state.solved) {
+
+                attemptBadge.innerText = 'Selesai';
+
+                attemptBadge.className = 'bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full border border-emerald-300 font-bold';
+
+            } else {
+
+                attemptBadge.innerText = `Cubaan ${state.attempts + 1} / 2`;
+
+                attemptBadge.className = state.attempts === 1 
+
+                    ? 'bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full border border-amber-300 font-bold'
+
+                    : 'bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full border border-indigo-200 font-bold';
+
+            }
+
+
+
+            // Options rendering
+
+            const container = document.getElementById('optionsContainer');
+
+            container.innerHTML = '';
+
+
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+
+            q.options.forEach((optText, optIdx) => {
+
+                const btn = document.createElement('button');
+
+                btn.onclick = () => handleAnswerSelect(optIdx);
+
+                // Determine style based on user state
+
+                let btnStyle = "bg-slate-50 border-slate-200 text-slate-700 hover:bg-indigo-50 hover:border-indigo-300";
+
+                let badgeStyle = "bg-white border-slate-300 text-slate-600";
+
+
+
+                if (state.disabledOpts.includes(optIdx)) {
+
+                    btnStyle = "bg-rose-50 border-rose-200 text-rose-400 opacity-60 cursor-not-allowed line-through";
+
+                    badgeStyle = "bg-rose-100 border-rose-300 text-rose-500";
+
+                    btn.disabled = true;
+
+                } else if (state.solved) {
+
+                    btn.disabled = true;
+
+                    if (optIdx === q.correct) {
+
+                        btnStyle = "bg-emerald-50 border-emerald-500 text-emerald-900 font-bold ring-2 ring-emerald-300";
+
+                        badgeStyle = "bg-emerald-600 text-white border-emerald-600";
+
+                    } else if (optIdx === state.selectedOpt) {
+
+                        btnStyle = "bg-rose-50 border-rose-300 text-rose-800 opacity-80";
+
+                        badgeStyle = "bg-rose-500 text-white border-rose-500";
+
+                    } else {
+
+                        btnStyle = "bg-slate-50 border-slate-200 text-slate-400 opacity-50";
+
+                    }
+
+                }
+
+
+
+                btn.className = `w-full p-3.5 md:p-4 rounded-xl border-2 text-left font-medium text-sm md:text-base transition-all flex items-center justify-between group ${btnStyle}`;
+
+                btn.innerHTML = `
+
+                    <div class="flex items-center space-x-3">
+
+                        <span class="w-8 h-8 rounded-lg border flex items-center justify-center font-bold text-xs md:text-sm ${badgeStyle}">
+
+                            ${optionLabels[optIdx]}
+
+                        </span>
+
+                        <span>${optText}</span>
+
+                    </div>
+
+                    <i class="${state.solved && optIdx === q.correct ? 'fa-solid fa-circle-check text-emerald-600 text-xl' : 'fa-regular fa-circle text-slate-300 group-hover:text-indigo-400'}"></i>
+
+                `;
+
+                container.appendChild(btn);
+
+            });
+
+
+
+            // Update Feedback Box
+
+            updateFeedbackBox();
+
+
+
+            // Nav buttons state
+
+            document.getElementById('prevBtn').disabled = (index === 0);
+
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (index === quizData.length - 1) {
+
+                nextBtn.innerHTML = `<span>Lihat Keputusan</span> <i class="fa-solid fa-trophy"></i>`;
+
+            } else {
+
+                nextBtn.innerHTML = `<span>Seterusnya</span> <i class="fa-solid fa-chevron-right"></i>`;
+
+            }
+
+
+
+            updateNavGrid();
+
+        }
+
+
+
+        function handleAnswerSelect(selectedIdx) {
+
+            const q = quizData[currentIndex];
+
+            const state = userState[currentIndex];
+
+
+
+            if (state.solved || state.disabledOpts.includes(selectedIdx)) return;
+
+
+
+            state.attempts += 1;
+
+            state.selectedOpt = selectedIdx;
+
+
+
+            const card = document.getElementById('questionCard');
+
+
+
+            // CASE 1: CORRECT ANSWER
+
+            if (selectedIdx === q.correct) {
+
+                state.solved = true;
+
+                state.points = state.attempts === 1 ? 1 : 0.5; // Full 1pt for 1st try, 0.5pt for 2nd try
+
+                playCorrectSound();
+
+                card.classList.add('pop-anim');
+
+                setTimeout(() => card.classList.remove('pop-anim'), 400);
+
+
+
+            } else {
+
+                // CASE 2: INCORRECT ANSWER
+
+                playWrongSound();
+
+                card.classList.add('shake-anim');
+
+                setTimeout(() => card.classList.remove('shake-anim'), 400);
+
+
+
+                if (state.attempts === 1) {
+
+                    // 1st failed attempt -> allow second try!
+
+                    state.disabledOpts.push(selectedIdx);
+
+                } else {
+
+                    // 2nd failed attempt -> reveal correct answer
+
+                    state.solved = true;
+
+                    state.points = 0;
+
+                }
+
+            }
+
+
+
+            recalculateScore();
+
+            loadQuestion(currentIndex);
+
+        }
+
+
+
+        function updateFeedbackBox() {
+
+            const box = document.getElementById('feedbackBox');
+
+            const icon = document.getElementById('feedbackIcon');
+
+            const title = document.getElementById('feedbackTitle');
+
+            const detail = document.getElementById('feedbackDetail');
+
+
+
+            const q = quizData[currentIndex];
+
+            const state = userState[currentIndex];
+
+
+
+            if (state.attempts === 0) {
+
+                box.className = 'hidden';
+
+                return;
+
+            }
+
+
+
+            box.classList.remove('hidden');
+
+
+
+            if (state.solved) {
+
+                if (state.selectedOpt === q.correct) {
+
+                    box.className = 'p-4 rounded-xl text-sm font-semibold bg-emerald-50 border border-emerald-200 text-emerald-900 pop-anim';
+
+                    icon.className = 'fa-solid fa-circle-check text-emerald-600 text-xl mt-0.5';
+
+                    title.innerText = state.attempts === 1 
+
+                        ? 'TAHNIAH! Jawapan Tepat pada Cubaan Pertama!' 
+
+                        : 'SYABAS! Jawapan Anda Betul pada Cubaan Kedua!';
+
+                    detail.innerHTML = `<strong>Penjelasan:</strong> ${q.explanation}`;
+
+                } else {
+
+                    box.className = 'p-4 rounded-xl text-sm font-semibold bg-rose-50 border border-rose-200 text-rose-900 pop-anim';
+
+                    icon.className = 'fa-solid fa-circle-xmark text-rose-600 text-xl mt-0.5';
+
+                    title.innerText = 'Jawapan Masih Kurang Tepat.';
+
+                    const optionLetters = ['A', 'B', 'C', 'D'];
+
+                    detail.innerHTML = `Jawapan yang betul ialah <strong>${optionLetters[q.correct]}. ${q.options[q.correct]}</strong>.<br><span class="mt-1 block"><strong>Penjelasan:</strong> ${q.explanation}</span>`;
+
+                }
+
+            } else if (state.attempts === 1) {
+
+                // Failed attempt 1 -> prompt attempt 2
+
+                box.className = 'p-4 rounded-xl text-sm font-semibold bg-amber-50 border border-amber-300 text-amber-900 pop-anim';
+
+                icon.className = 'fa-solid fa-triangle-exclamation text-amber-600 text-xl mt-0.5';
+
+                title.innerText = 'Jawapan Kurang Tepat! (Baki Cubaan: 1)';
+
+                detail.innerText = 'Jangan putus asa! Sila cuba pilih jawapan lain sekali lagi.';
+
+            }
+
+        }
+
+
+
+        function recalculateScore() {
+
+            score = userState.reduce((acc, curr) => acc + curr.points, 0);
+
+            document.getElementById('scoreDisplay').innerText = `${score} / ${quizData.length}`;
+
+        }
+
+
+
+        function nextQuestion() {
+
+            if (currentIndex < quizData.length - 1) {
+
+                loadQuestion(currentIndex + 1);
+
+            } else {
+
+                showResults();
+
+            }
+
+        }
+
+
+
+        function prevQuestion() {
+
+            if (currentIndex > 0) {
+
+                loadQuestion(currentIndex - 1);
+
+            }
+
+        }
+
+
+
+        function jumpToQuestion(index) {
+
+            loadQuestion(index);
+
+        }
+
+
+
+        function showResults() {
+
+            document.getElementById('quizPanel').classList.add('hidden');
+
+            document.getElementById('resultScreen').classList.remove('hidden');
+
+
+
+            document.getElementById('finalScoreText').innerText = `${score} / ${quizData.length}`;
+
+
+
+            const firstTry = userState.filter(s => s.attempts === 1 && s.solved && s.points === 1).length;
+
+            const secondTry = userState.filter(s => s.attempts === 2 && s.solved && s.points === 0.5).length;
+
+
+
+            document.getElementById('firstTryCount').innerText = `${firstTry} soalan`;
+
+            document.getElementById('secondTryCount').innerText = `${secondTry} soalan`;
+
+
+
+            const percentage = (score / quizData.length) * 100;
+
+            const gradeElem = document.getElementById('performanceGrade');
+
+
+
+            if (percentage >= 85) {
+
+                gradeElem.innerText = 'Cemerlang! Anda Seorang Pakar Pengetahuan Am & Warisan Malaysia!';
+
+                gradeElem.className = 'text-sm font-bold text-emerald-600';
+
+            } else if (percentage >= 60) {
+
+                gradeElem.innerText = 'Syabas! Tahap Pengetahuan Warisan Anda Memuaskan.';
+
+                gradeElem.className = 'text-sm font-bold text-indigo-600';
+
+            } else {
+
+                gradeElem.innerText = 'Perlu Lebih Banyak Ulang Kaji Pengetahuan Am Warisan Malaysia.';
+
+                gradeElem.className = 'text-sm font-bold text-amber-600';
+
+            }
+
+        }
+
+
+
+        function restartQuiz() {
+
+            score = 0;
+
+            currentIndex = 0;
+
+            userState = quizData.map(() => ({
+
+                attempts: 0,
+
+                solved: false,
+
+                selectedOpt: null,
+
+                points: 0,
+
+                disabledOpts: []
+
+            }));
+
+
+
+            document.getElementById('resultScreen').classList.add('hidden');
+
+            document.getElementById('startScreen').classList.remove('hidden');
+
+            document.getElementById('scoreDisplay').innerText = `0 / ${quizData.length}`;
+
+        }
+
+    </script>
+
+</body>
+
+</html>
